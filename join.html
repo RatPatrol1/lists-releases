@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Join a shared list – Lists</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a href="./">Lists</a>
+  <nav><a href="privacy.html">Privacy policy</a><a href="https://github.com/RatPatrol1/lists-releases/releases/latest">Download</a></nav>
+</header>
+<main>
+  <h1>Join a shared list</h1>
+  <p>Someone invited you to a shared list in Lists, an Android shopping-list app.</p>
+  <p><a class="button" id="open" href="#">Open in Lists</a></p>
+  <p id="bad" hidden>This invite link is incomplete. Ask the person who sent it for the whole link.</p>
+  <h2>Don't have Lists yet?</h2>
+  <ol>
+    <li><a href="https://github.com/RatPatrol1/lists-releases/releases/latest">Download and install Lists</a> (Android 10 or newer).</li>
+    <li>Come back to this page and tap <strong>Open in Lists</strong>.</li>
+  </ol>
+  <p>Or, in Lists, open <strong>⋮ → Join a shared list…</strong> and paste the invite link.</p>
+  <p class="muted">Anyone with the invite link can see and change the shared list, so don't pass it on.
+  The list code stays in your phone: it's after the # in the link, which browsers never send to this website.</p>
+</main>
+<footer>© RatPatrol1. All rights reserved.</footer>
+<script>
+  // The spreadsheet ID is in the part after "#", which is never sent to the server.
+  var id = location.hash.slice(1);
+  var open = document.getElementById("open");
+  if (/^[A-Za-z0-9_-]{20,}$/.test(id)) {
+    open.href = "intent://join/" + id + "#Intent;scheme=listsapp;package=io.github.ratpatrol1.lists;" +
+      // Lists isn't in the Play Store: if it isn't installed, go to the download page instead.
+      "S.browser_fallback_url=" + encodeURIComponent("https://github.com/RatPatrol1/lists-releases/releases/latest") + ";end";
+  } else {
+    open.hidden = true;
+    document.getElementById("bad").hidden = false;
+  }
+</script>
+</body>
+</html>
